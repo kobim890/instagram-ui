@@ -1,0 +1,15 @@
+@import '~bootstrap';
+
+
+@media screen and (max-width: 600px) {
+.App {
+    display:flex;
+    align-items: flex-end;
+  }
+}
+body {
+  font-family: 'Roboto', sans-serif;
+}
+.main{
+  overflow-y: auto;
+}

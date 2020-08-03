@@ -1,26 +1,79 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+import './App.scss';
+import Menu from "./Menu/Menu";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useHistory
+} from "react-router-dom";
+import Register from "./Register/Register";
+import Login from "./Login/Login";
+import PostCreate from './PostCreate/PostCreate';
+import { UserContext } from './user-context';
+import {UserService} from "./services/user-service";
+import AppLoader from "./AppLoader/AppLoader";
+import Feed from "./Feed/Feed";
+import Profile from "./Profile/Profile";
+import Search from "./Search/Search";
+import PostPage from "./PostPage/PostPage";
+
 
 function App() {
+        const [isLoading, setLoading] = useState(true);
+        const [user , setUser] = useState({});
+        const history = useHistory();
+
+
+        useEffect(() =>{
+           async function getUser (){
+                const user = await UserService.get();
+               setUser(user);
+               setLoading(false);
+                if(!user){
+                    history.push('/login')
+               }
+            }
+            getUser();
+        },[history]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <UserContext.Provider value={{user, setUser}}>
+          <AppLoader show={isLoading} />
+            <div className="d-flex flex-column flex-sm-column-reverse vh-100">
+                <div className="main flex-grow-1">
+                    <div className="container mt-3 ">
+                        <Switch>
+                            <Route path="/search">
+                                <Search/>
+                            </Route>
+                            <Route path="/login">
+                                <Login/>
+                            </Route>
+                            <Route path="/register">
+                                <Register/>
+                            </Route>
+                            <Route path='/post/create'>
+                                <PostCreate />
+                            </Route>
+                        <Route path='/profile/:id'>
+                            <Profile/>
+                        </Route>
+                            <Route path='/post/:id'>
+                                <PostPage/>
+                            </Route>
+                            <Route path="/">
+                                <Feed/>
+                            </Route>
+                        </Switch>
+                    </div>
+                </div>
+                {user && <Menu />}
+            </div>
+      </UserContext.Provider>
   );
 }
+
 
 export default App;

@@ -1,0 +1,19 @@
+.Post{
+  border: 1px solid lightgray;
+  background-color: aliceblue;
+  .postImg {
+    width:100%;
+  }
+  .likes-icon{
+    font-size: 16px;
+    color: #007bff;
+  }
+  .postDate{
+    font-size: 12px;
+    color:gray;
+  }
+  .imgFixer{
+    height:186px;
+    overflow: hidden;
+  }
+}

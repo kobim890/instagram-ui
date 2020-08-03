@@ -1,0 +1,26 @@
+.App_loading{
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left:0;
+  right:0;
+  background: #ffffff;
+  z-index: 99;
+  text-align: center;
+  padding-top:50px;
+
+}
+.spinner {
+  border:solid 15px #007bff;
+  height:100px;
+  width:100px;
+  border-radius:50%;
+  border-top:15px solid gray;
+  animation:loading 1s infinite;
+  margin: 0 auto;
+}
+@keyframes loading {
+  0% {
+    transform:rotate(360deg)
+  }
+}

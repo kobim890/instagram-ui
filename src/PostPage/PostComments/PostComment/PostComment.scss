@@ -1,0 +1,10 @@
+.PostComment{
+  .userComment{
+    display:flex;
+    flex-direction:row;
+  }
+  .commentDate{
+    color:gray;
+    font-size:12px;
+  }
+}
